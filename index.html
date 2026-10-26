@@ -1,12 +1,331 @@
-<!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#203d32"><title>こだわりをたどる｜Craft Discovery</title><link rel="stylesheet" href="style.css"></head>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="自分の興味を入口に、工芸の作品や作り手のこだわりをたどり、ものづくりのヒントを見つける探索サイト。"
+  >
+
+  <meta name="theme-color" content="#f7f5f0">
+
+  <title>こだわりをたどる｜Craft Discovery</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
 <body>
-<header><a class="brand" href="#" data-page="home"><span class="mark">K</span><span><b>こだわりをたどる</b><small>CRAFT DISCOVERY</small></span></a><nav><button class="nav active" data-page="home">見つける</button><button class="nav" data-page="saved">保存した発見 <span id="savedCount">0</span></button></nav></header>
-<main>
-<section id="homePage" class="page active"><section class="hero"><div><p class="eyebrow">LOOK CLOSER, THINK DIFFERENTLY</p><h1>「気になる」から、<br>ものづくりの視点を見つける。</h1><p>形、素材、技法、考え方。あなたのアンテナに引っかかったものから、工芸に隠れた「こだわり」をたどってみよう。</p><button class="primary" id="start">探索をはじめる ↗</button></div><div class="hero-art"><span>NOTICE<br>THE DETAIL</span></div></section>
-<section id="entry"><div class="section-head"><div><p class="eyebrow">YOUR CURIOSITY</p><h2>今、何が気になる？</h2></div><p>言葉でも、画像の印象でも。<br>気になる入口を選んでください。</p></div><div id="interests" class="interest-grid"></div></section>
-<section><div class="section-head"><div><p class="eyebrow">START WITH A DISCOVERY</p><h2>まずは、眺めてみる</h2></div><button class="text-button" id="all">すべて見る ↗</button></div><div id="featured" class="cards"></div></section><p class="footnote">卒業研究の試作版です。掲載内容・「こだわり」の解釈は検証用のサンプルを含みます。</p></section>
-<section id="resultsPage" class="page"><button class="back" data-page="home">← ホームへ戻る</button><div class="intro"><p class="eyebrow">EXPLORE BY KODAWARI</p><h1 id="resultTitle">気になる視点から探す</h1><p id="resultDescription">こだわりを手がかりに、作品・人物・考え方を横断してみましょう。</p></div><div class="filters"><label class="search">⌕ <input id="query" type="search" placeholder="言葉・作品・人物から探す"></label><div id="types"><button class="chip active" data-type="all">すべて</button><button class="chip" data-type="作品">作品</button><button class="chip" data-type="人物">人物</button><button class="chip" data-type="考え方">考え方</button></div></div><p id="resultCount" class="muted"></p><div id="results" class="cards"></div><div id="empty" class="empty hidden"><h3>見つかりませんでした</h3><p>別の言葉やテーマを試してください。</p><button class="secondary" id="reset">検索をリセット</button></div></section>
-<section id="detailPage" class="page"><button class="back" id="detailBack">← 探索結果へ戻る</button><article id="detail" class="detail"></article></section>
-<section id="savedPage" class="page"><div class="intro"><p class="eyebrow">YOUR COLLECTION</p><h1>保存した発見</h1><p>気になった対象や、制作につながりそうな考えを振り返りましょう。</p></div><div id="saved"></div></section>
-</main><footer><span>こだわりをたどる　●　卒業研究プロトタイプ</span><span>気づきを、次のものづくりへ。</span></footer><div id="toast" role="status" class="toast"></div><script src="script.js"></script></body></html>
+
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <button class="brand" data-page="home" aria-label="ホームへ戻る">
+        <span class="brand-mark">こ</span>
+        <span class="brand-text">
+          <strong>こだわりをたどる</strong>
+          <small>CRAFT DISCOVERY</small>
+        </span>
+      </button>
+
+      <nav class="main-nav" aria-label="メインナビゲーション">
+        <button class="nav active" data-page="home">ホーム</button>
+        <button class="nav" data-page="results">探索する</button>
+        <button class="nav" data-page="saved">
+          保存した発見
+          <span id="savedCount">0</span>
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =====================================
+         ホーム
+    ====================================== -->
+    <section id="homePage" class="page active">
+
+      <!-- メインビジュアル -->
+      <section class="hero">
+        <div class="hero-inner">
+
+          <div class="hero-copy">
+            <div class="hero-kicker">
+              FIND YOUR OWN PERSPECTIVE
+            </div>
+
+            <h1>
+              ものづくりの<br>
+              <span>こだわり</span>をたどる。
+            </h1>
+
+            <p class="hero-description">
+              色、形、素材、考え方。<br>
+              ちょっと気になることから、工芸の世界を探索してみませんか。
+              作品や作り手のこだわりを知ることで、
+              自分の制作につながる新しい視点を見つけます。
+            </p>
+
+            <div class="hero-actions">
+              <button id="start" class="button-primary">
+                興味から探してみる
+                <span aria-hidden="true">→</span>
+              </button>
+
+              <button id="all" class="button-secondary">
+                すべての対象を見る
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-circle"></div>
+            <div class="art-center">こ</div>
+            <span class="art-label label-top">CRAFT</span>
+            <span class="art-label label-bottom">DISCOVERY</span>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- 興味の入口 -->
+      <section id="entry" class="section interest-section">
+        <div class="container">
+
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">START WITH YOUR INTEREST</div>
+              <h2>何が気になりますか？</h2>
+            </div>
+
+            <p>
+              自分の好きな視点から、<br>
+              新しい発見へ。
+            </p>
+          </div>
+
+          <div id="interests" class="interest-grid">
+            <!-- JavaScriptで表示 -->
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- おすすめの探索対象 -->
+      <section class="section">
+        <div class="container">
+
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">DISCOVER SOMETHING NEW</div>
+              <h2>こんな対象から始めてみる</h2>
+            </div>
+          </div>
+
+          <div id="featured" class="card-grid">
+            <!-- JavaScriptで表示 -->
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- サイトの使い方 -->
+      <section class="section">
+        <div class="container">
+
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">HOW TO EXPLORE</div>
+              <h2>こだわりを、制作のヒントへ。</h2>
+            </div>
+          </div>
+
+          <div class="card-grid">
+
+            <article class="object-card">
+              <div class="card-body">
+                <div class="eyebrow">STEP 01</div>
+                <h3 class="card-title">気になる視点を選ぶ</h3>
+                <p class="summary">
+                  色や形、素材など、自分が気になっていることから探索を始めます。
+                </p>
+              </div>
+            </article>
+
+            <article class="object-card">
+              <div class="card-body">
+                <div class="eyebrow">STEP 02</div>
+                <h3 class="card-title">こだわりを読み解く</h3>
+                <p class="summary">
+                  作品や作り手の工夫、背景を知り、なぜその表現になったのかを考えます。
+                </p>
+              </div>
+            </article>
+
+            <article class="object-card">
+              <div class="card-body">
+                <div class="eyebrow">STEP 03</div>
+                <h3 class="card-title">自分の制作に結びつける</h3>
+                <p class="summary">
+                  気づいたことを保存し、自分ならどう生かせるかをメモします。
+                </p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+
+    <!-- =====================================
+         探索結果
+    ====================================== -->
+    <section id="resultsPage" class="page">
+
+      <div class="container">
+
+        <header class="page-heading">
+          <div class="eyebrow">EXPLORE</div>
+          <h1 id="resultTitle">気になる視点から探す</h1>
+          <p id="resultDescription">
+            言葉や気になるテーマを手がかりに、
+            作品・人物・考え方を横断してみましょう。
+          </p>
+        </header>
+
+        <section class="section">
+
+          <!-- キーワード検索 -->
+          <div class="search-panel">
+            <input
+              id="query"
+              class="search-input"
+              type="search"
+              placeholder="キーワードで探す（例：木、模様、暮らし）"
+              aria-label="キーワードで探す"
+            >
+          </div>
+
+          <!-- 対象の種類 -->
+          <div class="filter-row" aria-label="対象の種類で絞り込む">
+            <button class="chip active" data-type="all">すべて</button>
+            <button class="chip" data-type="人物">人物</button>
+            <button class="chip" data-type="作品">作品</button>
+            <button class="chip" data-type="考え方">考え方</button>
+          </div>
+
+          <div class="result-info">
+            <span id="resultCount">0件の対象</span>
+
+            <button id="reset" class="small">
+              条件をリセット
+            </button>
+          </div>
+
+          <!-- JavaScriptで探索結果を表示 -->
+          <div id="results" class="card-grid">
+          </div>
+
+          <!-- 検索結果がない場合 -->
+          <div id="empty" class="empty-state hidden">
+            <h2>対象が見つかりませんでした</h2>
+            <p>
+              別のキーワードを試すか、検索条件をリセットしてください。
+            </p>
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         詳細
+    ====================================== -->
+    <section id="detailPage" class="page">
+
+      <div class="container">
+
+        <div class="detail-top">
+          <button id="detailBack" class="back-button">
+            ← 探索結果へ戻る
+          </button>
+        </div>
+
+        <!-- JavaScriptで対象の詳細を表示 -->
+        <div id="detail">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         保存した発見
+    ====================================== -->
+    <section id="savedPage" class="page">
+
+      <div class="container">
+
+        <header class="page-heading">
+          <div class="eyebrow">MY DISCOVERIES</div>
+          <h1>保存した発見</h1>
+          <p>
+            気になった対象を見返したり、
+            自分の制作につながるアイデアを書き留めたりできます。
+          </p>
+        </header>
+
+        <div id="saved" class="saved-list">
+          <!-- JavaScriptで保存した対象を表示 -->
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+
+      <div>
+        <div class="footer-brand">こだわりをたどる</div>
+
+        <p class="footer-description">
+          自分の興味を入口に、工芸の作品や作り手のこだわりを探索し、
+          ものづくりの新しい視点を見つけるための試作サイトです。
+        </p>
+      </div>
+
+      <div class="footer-note">
+        <p>CRAFT DISCOVERY</p>
+        <p>卒業研究制作・プロトタイプ</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- 操作結果のメッセージ -->
+  <div id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
